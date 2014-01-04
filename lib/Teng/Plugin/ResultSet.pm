@@ -22,7 +22,7 @@ our @EXPORT = qw/result_set/;
                 no strict 'refs'; @{"$rs_class\::ISA"} = ('Teng::ResultSet');
             };
             $rs_class;
-        }
+        };
         $result_set_class->new(teng => $self, table_name => $table_name);
     }
 }
