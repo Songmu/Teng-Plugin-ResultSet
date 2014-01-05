@@ -47,14 +47,18 @@
             "Class::Load" : "0",
             "Class::Method::Modifiers" : "0",
             "String::CamelCase" : "0",
-            "Teng" : "0",
+            "Teng::Iterator" : "0",
             "parent" : "0",
             "perl" : "5.008001"
          }
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0.98"
+            "Teng" : "0",
+            "Teng::Row" : "0",
+            "Teng::Schema::Declare" : "0",
+            "Test::More" : "0.98",
+            "Test::Requires" : "0"
          }
       }
    },

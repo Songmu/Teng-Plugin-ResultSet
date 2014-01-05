@@ -37,7 +37,7 @@ use Class::Accessor::Lite::Lazy 0.03 (
         my $sub_class = $_CACHE{$rs_base_class}{$args{table_name}} ||= do {
             my $pkg = $rs_base_class . '::' . String::CamelCase::camelize($args{table_name});
             Class::Load::load_optional_class($pkg) or do {
-                no strict 'refs'; @{"$pkg\::ISA"} = $rs_base_class;
+                no strict 'refs'; @{"$pkg\::ISA"} = ($rs_base_class);
             };
             $pkg;
         };
