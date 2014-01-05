@@ -1,5 +1,5 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Teng plugin providing ResultSet",
    "author" : [
       "Songmu <y.songmu@gmail.com>"
    ],
@@ -43,7 +43,13 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008005"
+            "Class::Accessor::Lite::Lazy" : "0.03",
+            "Class::Load" : "0",
+            "Class::Method::Modifiers" : "0",
+            "String::CamelCase" : "0",
+            "Teng" : "0",
+            "parent" : "0",
+            "perl" : "5.008001"
          }
       },
       "test" : {
@@ -53,5 +59,16 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/Songmu/Teng-Plugin-ResultSet/issues"
+      },
+      "homepage" : "https://github.com/Songmu/Teng-Plugin-ResultSet",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/Songmu/Teng-Plugin-ResultSet.git",
+         "web" : "https://github.com/Songmu/Teng-Plugin-ResultSet"
+      }
+   },
    "version" : "0.01"
 }

@@ -37,15 +37,39 @@ __END__
 
 =head1 NAME
 
-Teng::Plugin::ResultSet - It's new $module
+Teng::Plugin::ResultSet - Teng plugin providing ResultSet
 
 =head1 SYNOPSIS
 
-    use Teng::Plugin::ResultSet;
+    package MyDB;
+    use parent 'Teng';
+    __PACKAGE__->load_plugin('ResultSet');
+    
+    package main;
+    my $db = MyDB->new(...);
+    my $rs = $db->resultset('TableName');
+    $rs = $rs->search({id, {'>', 10});
+    while (my $row = $rs->next) {
+        ...
+    }
 
 =head1 DESCRIPTION
 
-Teng::Plugin::ResultSet is ...
+Teng::Plugin::ResultSet is plugin of L<Teng> providing ResultSet class.
+
+B<THE SOFTWARE IS ALPHA QUALITY. API MAY CHANGE WITHOUT NOTICE.>
+
+=head1 METHODS
+
+=over
+
+=item C<< $result_set:Teng::ResultSet = $db->resultset($result_set_name:Str) >>
+
+=back
+
+=head1 SEE ALSO
+
+L<Teng::ResultSet>
 
 =head1 LICENSE
 

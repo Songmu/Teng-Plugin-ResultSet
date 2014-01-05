@@ -6,7 +6,7 @@ use parent 'Teng::Iterator';
 use String::CamelCase ();
 use Class::Load ();
 use Class::Method::Modifiers;
-use Class::Accessor::Lite::Lazy (
+use Class::Accessor::Lite::Lazy 0.03 (
     ro      => [qw/teng table table_name row_class/],
     rw      => [qw/where opt/],
     ro_lazy => {
@@ -108,3 +108,66 @@ for my $method (qw/search_with_pager delete single/) {
 }
 
 1;
+
+__END__
+
+=encoding utf-8
+
+=head1 NAME
+
+Teng::ResultSet - base class of ResultSet
+
+=head1 SYNOPSIS
+
+    my $rs = $db->resultset('TableName');
+    $rs = $rs->search({id, {'>', 10});
+    while (my $row = $rs->next) {
+        ...
+    }
+    my $row = $rs->single;
+    $rs->delete;
+
+=head1 DESCRIPTION
+
+Teng::ResultSet is base class of each ResultSet.
+
+Don't use this class directory, use via C<< $db->resultset($rs_name) >> instead.
+
+B<THE SOFTWARE IS ALPHA QUALITY. API MAY CHANGE WITHOUT NOTICE.>
+
+=head1 METHODS
+
+=over
+
+=item C<search>
+
+Returns ResultSet object in scalar context and returns array of row object
+in array context.
+
+=item C<next>
+
+=item C<all>
+
+=item C<count>
+
+=item C<insert>
+
+=item C<delete>
+
+=item C<single>
+
+=back
+
+=head1 LICENSE
+
+Copyright (C) Songmu.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 AUTHOR
+
+Songmu E<lt>y.songmu@gmail.comE<gt>
+
+=cut
+
