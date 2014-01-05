@@ -46,7 +46,7 @@ use Test::More 0.98;
 my $db = Mock::BasicALLINONE->new(connect_info => ['dbi:SQLite::memory:', '','']);
 $db->setup_test_db;
 
-my $rs = $db->result_set('mock_basic');
+my $rs = $db->resultset('MockBasic');
 isa_ok $rs, 'Teng::ResultSet';
 isa_ok $rs, 'Mock::BasicALLINONE::ResultSet';
 isa_ok $rs, 'Mock::BasicALLINONE::ResultSet::MockBasic';
@@ -54,11 +54,11 @@ ok ! exists $rs->{sth};
 is $rs->count, 0;
 
 subtest insert => sub {
-    $db->result_set('mock_basic')->insert({
+    $db->resultset('MockBasic')->insert({
         id   => 1,
         name => 'perl',
     });
-    my $rs = $db->result_set('mock_basic');
+    my $rs = $db->resultset('MockBasic');
     ok ! exists $rs->{sth};
     is $rs->count, 1;
     my $row = $rs->next;
@@ -70,14 +70,14 @@ subtest insert => sub {
 };
 
 subtest bulk_insert => sub {
-    $db->result_set('mock_basic')->bulk_insert([{
+    $db->resultset('MockBasic')->bulk_insert([{
         id   => 2,
         name => 'ruby',
     }, {
         id   => 3,
         name => 'python',
     }]);
-    my $rs = $db->result_set('mock_basic');
+    my $rs = $db->resultset('MockBasic');
     is $rs->count, 3;
 
     my $sub_rs = $rs->search({
@@ -99,6 +99,40 @@ subtest bulk_insert => sub {
 
     isa_ok $rows[0], 'Teng::Row';
     is $rows[0]->id, 2;
+};
+
+subtest search => sub {
+    $db->resultset('MockBasic')->insert({
+        id   => 4,
+        name => 'perl',
+    });
+
+    my $rs = $db->resultset('MockBasic');
+    is $rs->count, 4;
+
+    $rs = $rs->search({
+        id => {'>', 1},
+    }, {
+        order_by => 'id',
+    });
+
+    is $rs->count, 3;
+    $rs = $rs->search({
+        name => 'perl',
+    });
+    is $rs->count, 1;
+
+    my $row = $rs->next;
+    is $row->id, 4;
+    is $row->name, 'perl';
+
+    $row = $rs->single;
+    is $row->id, 4;
+    is $row->name, 'perl';
+
+    $rs->delete;
+    is $rs->count, 0;
+    is $db->resultset('MockBasic')->count, 3;
 };
 
 done_testing;

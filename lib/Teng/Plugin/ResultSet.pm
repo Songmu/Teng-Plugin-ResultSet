@@ -6,14 +6,17 @@ use warnings;
 our $VERSION = "0.01";
 
 use Class::Load;
+use String::CamelCase qw/decamelize/;
+
 use Teng::ResultSet;
-our @EXPORT = qw/result_set/;
+our @EXPORT = qw/resultset/;
 
 {
     my %_CACHE;
-    sub result_set {
+    sub resultset {
         my ($self, $table_name) = @_;
 
+        $table_name = decamelize $table_name;
         my $teng_class = ref $self;
         my $result_set_class = $_CACHE{$teng_class} ||= do {
             my $rs_class = "$teng_class\::ResultSet";
